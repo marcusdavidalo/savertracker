@@ -144,7 +144,7 @@ const sortedExpenses = [...expenses].sort((a, b) => b.amount - a.amount);
   return (
     <div className="bg-slate-900 text-white flex items-center justify-center h-screen">
       <div className="bg-white/20 border-slate-400/80 border rounded-md shadow-lg p-6">
-        <h1 className="text-3xl font-bold mb-6">SaverTrack</h1>
+        <h1 className="text-3xl font-bold mb-6">Saver Tracker</h1>
         <div className="mb-6">
           <label htmlFor="currency" className="text-lg font-medium mr-2">
             Select Currency:
