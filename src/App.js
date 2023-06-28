@@ -240,7 +240,7 @@ const sortedExpenses = [...expenses].sort((a, b) => b.amount - a.amount);
 <footer className="mt-6 flex items-center bg-slate-600 px-4 py-2 rounded-md">
         <p className="text-gray-400">Created by Marcus David Alo</p>
         <a
-          href="https://github.com/your-github-username"
+          href="https://github.com/marcusdavidalo"
           target="_blank"
           rel="noopener noreferrer"
           className="ml-2"
