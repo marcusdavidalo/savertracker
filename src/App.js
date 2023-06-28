@@ -127,7 +127,7 @@ const App = () => {
           </label>
           <select
             id="currency"
-            className="text-gray-700 border rounded-lg py-2 px-4"
+            className="bg-slate-800/40 text-gray-200 border rounded-lg py-2 px-4"
             value={currency}
             onChange={handleCurrencyChange}
           >
@@ -139,18 +139,20 @@ const App = () => {
         </div>
         <div className="mb-6">
           <p className="text-lg font-medium">
-            Monthly Income: {currency}{' '}
-            {Array.isArray(income)
+            Monthly Income: 
+            <span className='mx-1 px-2 py-1 rounded-md bg-green-500'>{currency}{' '}{Array.isArray(income)
               ? income.reduce((total, item) => total + parseFloat(item.amount), 0).toFixed(2)
-              : 0}
+              : 0}</span>
           </p>
         </div>
         <div className="mb-6">
           <p className="text-lg font-medium">
-            Monthly Expenses: {currency}{' '}
+            Monthly Expenses: 
+            <span className='mx-1 px-2 py-1 rounded-md bg-red-500'>
+            {currency}{' '}
             {Array.isArray(expenses)
               ? expenses.reduce((total, item) => total + parseFloat(item.amount), 0).toFixed(2)
-              : 0}
+              : 0}</span>
           </p>
         </div>
         <div className="mb-6">
@@ -166,41 +168,26 @@ const App = () => {
         <div className="flex flex-col">
   <h2 className="text-lg font-bold">Items:</h2>
   <ul className="rounded-lg p-2 mt-2">
-    {Array.isArray(income)
-      ? income.map((item, index) => (
-          <li
-            key={`income-${index}`}
-            className="bg-green-500 bg-opacity-50 hover:bg-opacity-75 rounded-lg p-2 mb-2 flex justify-between items-center"
+    {[...income, ...expenses]
+      .sort((a, b) => a.amount - b.amount)
+      .map((item, index) => (
+        <li
+          key={`item-${index}`}
+          className={`${
+            item.amount >= 0 ? 'bg-green-500' : 'bg-red-500'
+          } bg-opacity-50 hover:bg-opacity-75 rounded-lg p-2 mb-2 flex justify-between items-center`}
+        >
+          <span className="text-lg font-semibold">{item.itemName}:</span> {currency} {Math.abs(item.amount).toFixed(2)}{' '}
+          <button
+            className="bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md font-semibold text-gray-200 ml-2"
+            onClick={() => handleDeleteItem(item.amount >= 0 ? 'income' : 'expense', index)}
           >
-            <span className='text-lg font-semibold'>{item.itemName}:</span> {currency} {item.amount.toFixed(2)}{' '}
-            <button
-              className="bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md font-semibold text-gray-200 ml-2"
-              onClick={() => handleDeleteItem('income', index)}
-            >
-              Delete
-            </button>
-          </li>
-        ))
-      : null}
-    {Array.isArray(expenses)
-      ? expenses.map((item, index) => (
-          <li
-            key={`expenses-${index}`}
-            className="bg-red-500 bg-opacity-50 hover:bg-opacity-75 rounded-lg p-2 mb-2 flex justify-between items-center"
-          >
-            <span className='text-lg font-semibold'>{item.itemName}:</span> {currency} {item.amount.toFixed(2)}{' '}
-            <button
-              className="bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md font-semibold text-gray-200 ml-2"
-              onClick={() => handleDeleteItem('expense', index)}
-            >
-              Delete
-            </button>
-          </li>
-        ))
-      : null}
+            Delete
+          </button>
+        </li>
+      ))}
   </ul>
 </div>
-
       </div>
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center">
