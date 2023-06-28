@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+input[type="radio"] {
+  display: none;
+}
+
+input[type="radio"] + label {
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid #c9c9c9;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + label {
+  box-shadow: inset 0px 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+input[value="income"]:checked + label {
+  background-color: #22c55e;
+  color: #fff;
+}
+
+input[value="expense"]:checked + label {
+  background-color: #ef4444;
+  color: #fff;
+}
