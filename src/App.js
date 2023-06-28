@@ -10,6 +10,7 @@ const App = () => {
   const [modalType, setModalType] = useState('income');
   const [modalAmount, setModalAmount] = useState('');
   const [modalItemName, setModalItemName] = useState('');
+  const [editingItem, setEditingItem] = useState(null);
 
   useEffect(() => {
     const savedCurrency = localStorage.getItem('currency');
@@ -73,7 +74,9 @@ const sortedExpenses = [...expenses].sort((a, b) => b.amount - a.amount);
     setModalType('income');
     setModalAmount('');
     setModalItemName('');
+    setEditingItem(null);
   };
+  
 
   const handleModalTypeChange = (event) => {
     setModalType(event.target.value);
@@ -90,18 +93,37 @@ const sortedExpenses = [...expenses].sort((a, b) => b.amount - a.amount);
   const handleAddItem = () => {
     if (modalAmount !== '' && modalItemName !== '') {
       const newItem = {
-        amount: parseFloat(modalAmount),
+        amount: parseFloat(modalAmount) * (modalType === 'income' ? 1 : -1),
         itemName: modalItemName,
       };
-
-      if (modalType === 'income') {
-        setIncome([...income, newItem]);
+  
+      if (editingItem) {
+        if (modalType === 'income') {
+          const updatedIncome = income.map((item) => (item === editingItem ? newItem : item));
+          setIncome(updatedIncome);
+        } else {
+          const updatedExpenses = expenses.map((item) => (item === editingItem ? newItem : item));
+          setExpenses(updatedExpenses);
+        }
+        setEditingItem(null);
       } else {
-        setExpenses([...expenses, newItem]);
+        if (modalType === 'income') {
+          setIncome([...income, newItem]);
+        } else {
+          setExpenses([...expenses, newItem]);
+        }
       }
     }
-
+  
     handleModalClose();
+  };  
+
+  const handleEditItem = (item) => {
+    setModalType(item.amount >= 0 ? 'income' : 'expense');
+    setModalAmount(Math.abs(item.amount).toString());
+    setModalItemName(item.itemName);
+    setEditingItem(item);
+    setModalOpen(true);
   };
 
   const handleDeleteItem = (item) => {
@@ -121,7 +143,7 @@ const sortedExpenses = [...expenses].sort((a, b) => b.amount - a.amount);
 
   return (
     <div className="bg-slate-900 text-white flex items-center justify-center h-screen">
-      <div className="bg-white/20 rounded-md shadow-lg p-6">
+      <div className="bg-white/20 border-slate-400/80 border rounded-md shadow-lg p-6">
         <h1 className="text-3xl font-bold mb-6">SaverTrack</h1>
         <div className="mb-6">
           <label htmlFor="currency" className="text-lg font-medium mr-2">
@@ -195,6 +217,12 @@ const sortedExpenses = [...expenses].sort((a, b) => b.amount - a.amount);
       <span className="text-lg font-semibold">{item.itemName}:</span> {currency}{' '}
       {Math.abs(item.amount).toFixed(2)}{' '}
       <button
+  className="bg-blue-500 hover:bg-blue-600 px-2 py-1 rounded-md font-semibold text-gray-200 ml-2"
+  onClick={() => handleEditItem(item)}
+>
+  Edit
+</button>
+      <button
         className="bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md font-semibold text-gray-200 ml-2"
         onClick={() => handleDeleteItem(item)}
       >
@@ -209,7 +237,7 @@ const sortedExpenses = [...expenses].sort((a, b) => b.amount - a.amount);
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center">
           <div className="absolute inset-0 bg-gray-900 opacity-50 -z-10"></div>
-          <div className="bg-slate-800/50 backdrop-blur-md rounded-lg shadow-lg p-6">
+          <div className="bg-slate-800/50 border-slate-400/80 border backdrop-blur-md rounded-lg shadow-lg p-6">
             <h2 className="text-lg font-bold mb-4">Add Income/Expense</h2>
             <div className="flex items-center mb-4">
               <input
