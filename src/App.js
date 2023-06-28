@@ -27,6 +27,10 @@ const App = () => {
     }
   }, []);
 
+  const sortedIncome = [...income].sort((a, b) => b.amount - a.amount);
+const sortedExpenses = [...expenses].sort((a, b) => b.amount - a.amount);
+
+
   useEffect(() => {
     localStorage.setItem('currency', currency);
   }, [currency]);
@@ -100,14 +104,12 @@ const App = () => {
     handleModalClose();
   };
 
-  const handleDeleteItem = (itemType, index) => {
-    if (itemType === 'income') {
-      const updatedIncome = [...income];
-      updatedIncome.splice(index, 1);
+  const handleDeleteItem = (item) => {
+    if (income.includes(item)) {
+      const updatedIncome = income.filter((i) => i !== item);
       setIncome(updatedIncome);
     } else {
-      const updatedExpenses = [...expenses];
-      updatedExpenses.splice(index, 1);
+      const updatedExpenses = expenses.filter((i) => i !== item);
       setExpenses(updatedExpenses);
     }
   };
@@ -168,25 +170,40 @@ const App = () => {
         <div className="flex flex-col">
   <h2 className="text-lg font-bold">Items:</h2>
   <ul className="rounded-lg p-2 mt-2">
-    {[...income, ...expenses]
-      .sort((a, b) => a.amount - b.amount)
-      .map((item, index) => (
-        <li
-          key={`item-${index}`}
-          className={`${
-            item.amount >= 0 ? 'bg-green-500' : 'bg-red-500'
-          } bg-opacity-50 hover:bg-opacity-75 rounded-lg p-2 mb-2 flex justify-between items-center`}
-        >
-          <span className="text-lg font-semibold">{item.itemName}:</span> {currency} {Math.abs(item.amount).toFixed(2)}{' '}
-          <button
-            className="bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md font-semibold text-gray-200 ml-2"
-            onClick={() => handleDeleteItem(item.amount >= 0 ? 'income' : 'expense', index)}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-  </ul>
+  <li className="text-lg font-semibold mb-2">Income:</li>
+  {sortedIncome.map((item, index) => (
+    <li
+      key={`income-${index}`}
+      className={`bg-green-500 bg-opacity-50 hover:bg-opacity-75 rounded-lg p-2 mb-2 flex justify-between items-center`}
+    >
+      <span className="text-lg font-semibold">{item.itemName}:</span> {currency}{' '}
+      {Math.abs(item.amount).toFixed(2)}{' '}
+      <button
+        className="bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md font-semibold text-gray-200 ml-2"
+        onClick={() => handleDeleteItem(item)}
+      >
+        Delete
+      </button>
+    </li>
+  ))}
+  <li className="text-lg font-semibold my-2">Expenses:</li>
+  {sortedExpenses.map((item, index) => (
+    <li
+      key={`expense-${index}`}
+      className={`bg-red-500 bg-opacity-50 hover:bg-opacity-75 rounded-lg p-2 mb-2 flex justify-between items-center`}
+    >
+      <span className="text-lg font-semibold">{item.itemName}:</span> {currency}{' '}
+      {Math.abs(item.amount).toFixed(2)}{' '}
+      <button
+        className="bg-red-500 hover:bg-red-600 px-2 py-1 rounded-md font-semibold text-gray-200 ml-2"
+        onClick={() => handleDeleteItem(item)}
+      >
+        Delete
+      </button>
+    </li>
+  ))}
+</ul>
+
 </div>
       </div>
       {modalOpen && (
