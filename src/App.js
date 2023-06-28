@@ -9,7 +9,7 @@ const App = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState('income');
   const [modalAmount, setModalAmount] = useState('');
-  const [modalItemName, setModalItemName] = useState('');  
+  const [modalItemName, setModalItemName] = useState('');
 
   useEffect(() => {
     const savedCurrency = localStorage.getItem('currency');
@@ -32,10 +32,6 @@ const App = () => {
   }, [currency]);
 
   useEffect(() => {
-    localStorage.setItem('income', JSON.stringify(income));
-  }, [income]);
-
-  useEffect(() => {
     const calculateSavings = () => {
       let incomeValue = 0;
       let expensesValue = 0;
@@ -56,7 +52,7 @@ const App = () => {
       }
     };
 
-    localStorage.setItem('expenses', JSON.stringify(expenses));
+    localStorage.setItem('income', JSON.stringify(income));
     calculateSavings();
   }, [expenses, income]);
 
@@ -115,6 +111,11 @@ const App = () => {
       setExpenses(updatedExpenses);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem('income', JSON.stringify(income));
+    localStorage.setItem('expenses', JSON.stringify(expenses));
+  }, [income, expenses]);
 
   return (
     <div className="bg-slate-900 text-white flex items-center justify-center h-screen">
