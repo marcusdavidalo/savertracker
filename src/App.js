@@ -197,7 +197,10 @@ const App = () => {
         </div>
         <div className="mb-6">
           <p className="text-lg font-medium">
-            Potential Monthly Savings: {currency} {monthlySavings}
+            Potential Monthly Savings:{" "}
+            <span className="mx-1 px-2 py-1 rounded-md bg-green-500">
+              {currency} {monthlySavings}
+            </span>
           </p>
         </div>
         <div className="mb-6">
@@ -260,7 +263,7 @@ const App = () => {
               className="ml-2"
             >
               <svg
-                className="h-6 w-6 text-gray-400 hover:text-gray-500"
+                className="h-6 w-6 text-gray-200 hover:text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
