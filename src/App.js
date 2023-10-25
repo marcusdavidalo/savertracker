@@ -152,6 +152,7 @@ const App = () => {
           <a
             href="https://github.com/marcusdavidalo/savertracker"
             title="To SaverTracker Repository"
+            className="w-10 h-auto"
           >
             <img src={logo} alt="savertrackerlogo" />
           </a>
