@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import logo from "./main.png";
 
 const App = () => {
   const [currency, setCurrency] = useState("PHP");
@@ -146,7 +147,11 @@ const App = () => {
   return (
     <div className="bg-slate-900 text-white flex items-center justify-center h-screen">
       <div className="bg-white/20 border-slate-400/80 border rounded-md shadow-lg p-6 max-w-md">
-        <h1 className="text-3xl font-bold mb-2">Saver Tracker</h1>
+        <div className="flex justify-between w-auto gap-2 h-10 mb-4">
+          <h1 className="text-3xl font-bold mb-2">Saver Tracker</h1>
+          <img src={logo} alt="savertrackerlogo" />
+        </div>
+
         <div className="mb-6">
           <p className="text-gray-400 max-w-sm">
             This is a simple savings tracker app built with React. This web app
@@ -254,7 +259,7 @@ const App = () => {
             ))}
           </ul>
           {/* Footer */}
-          <footer className="mt-6 flex items-center bg-slate-600 px-4 py-2 rounded-md">
+          <footer className="mt-6 flex justify-between items-center bg-slate-600 px-4 py-2 rounded-md">
             <p className="text-gray-400">Created by Marcus David Alo</p>
             <a
               href="https://github.com/marcusdavidalo"
@@ -263,7 +268,7 @@ const App = () => {
               className="ml-2"
             >
               <svg
-                className="h-6 w-6 text-gray-200 hover:text-gray-500"
+                className="h-5 w-5 text-gray-200 hover:text-gray-500"
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
