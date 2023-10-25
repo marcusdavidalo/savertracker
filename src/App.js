@@ -145,11 +145,16 @@ const App = () => {
   }, [income, expenses]);
 
   return (
-    <div className="bg-slate-900 text-white flex items-center justify-center h-screen">
+    <div className="bg-slate-900 text-white flex items-center justify-center h-screen font-mono">
       <div className="bg-white/20 border-slate-400/80 border rounded-md shadow-lg p-6 max-w-md">
         <div className="flex justify-between w-auto gap-2 h-10 mb-4">
           <h1 className="text-3xl font-bold mb-2">Saver Tracker</h1>
-          <img src={logo} alt="savertrackerlogo" />
+          <a
+            href="https://github.com/marcusdavidalo/savertracker"
+            title="To SaverTracker Repository"
+          >
+            <img src={logo} alt="savertrackerlogo" />
+          </a>
         </div>
 
         <div className="mb-6">
@@ -266,6 +271,7 @@ const App = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="ml-2"
+              title="Marcus's Github"
             >
               <svg
                 className="h-5 w-5 text-gray-200 hover:text-gray-500"
@@ -284,7 +290,7 @@ const App = () => {
         </div>
       </div>
       {modalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center">
+        <div className="fixed inset-0 flex items-center justify-center font-mono">
           <div className="absolute inset-0 bg-gray-900 opacity-50 -z-10"></div>
           <div className="bg-slate-800/50 border-slate-400/80 border backdrop-blur-md rounded-lg shadow-lg p-6">
             <h2 className="text-lg font-bold mb-4">Add Income/Expense</h2>
