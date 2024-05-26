@@ -1,40 +1,45 @@
-# Saver Tracker
+## Summary
 
-This is a simple savings tracker app built with React. This web app only stores the data on your browser's local storage.
+The `App` function is a React component that manages a savings tracker application. It handles state for currencies, income, expenses, tax rates, and modal interactions for adding or editing financial items. The component uses local storage to persist data and recalculates savings whenever relevant data changes.
 
-## Getting Started
+## Example Usage
 
-To run the app locally, follow these steps:
+```javascript
+// To use the App component, simply render it within a React application.
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
-1. Clone the repository: `git clone <repository_url>`
-2. Navigate to the project directory: `cd saver-tracker`
-3. Install the dependencies: `npm install`
-4. Start the development server: `npm start`
-5. Open the app in your browser at `http://localhost:3000`
+ReactDOM.render(<App />, document.getElementById("root"));
+```
 
-## Usage
+## Code Analysis
 
-1. Select the currency from the dropdown menu.
-2. Enter your monthly income and expenses using the "Add Income/Expense" button.
-3. The app will calculate and display your monthly income, expenses, and potential monthly savings.
-4. You can edit or delete existing income and expense items by clicking on the corresponding buttons.
-5. The data will be stored in your browser's local storage.
+### Inputs
 
-## Technologies Used
+- `currency`: The current currency selected by the user.
+- `income`: An array of income items.
+- `expenses`: An array of expense items.
+- `taxRate`: The tax rate percentage.
+- `modalOpen`: Boolean state controlling the visibility of the modal.
+- `modalType`: Specifies whether the modal is for adding/editing income or expenses.
+- `modalAmount`, `modalItemName`, `modalInterval`, `modalCustomInterval`: States for managing the form inputs in the modal.
 
-- React
-- TailwindCSS
-- JavaScript
-- HTML
+---
 
-## Contributing
+### Flow
 
-Contributions are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
+1. Initializes state variables for managing currency, income, expenses, and modal properties.
+2. Uses `useEffect` to load initial state from local storage when the component mounts.
+3. Another `useEffect` recalculates the monthly savings whenever `currency`, `taxRate`, `income`, or `expenses` change.
+4. Provides functions to handle user interactions such as changing currency, adding/updating items, and opening/closing the modal.
+5. Renders the UI elements including forms for input, lists of income and expenses, and buttons for adding and editing items.
 
-## License
+---
 
-This project is licensed under the [MIT License](LICENSE).
+### Outputs
 
-## Acknowledgments
+- Renders a user interface that allows users to track their income and expenses in different currencies, calculate monthly savings, and manage tax rates.
+- Provides interactive elements to add, edit, or delete income and expense items.
 
-- Created by Marcus David Alo
+---

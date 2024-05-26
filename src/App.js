@@ -10,7 +10,7 @@ const currencySymbols = {
   JPY: "¥",
   AUD: "A$",
   CAD: "C$",
-  CHF: "CHF",
+  CHF: "Fr.",
   CNY: "¥",
   INR: "₹",
 };
